@@ -2,15 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { currentUser } from '@clerk/nextjs/server';
+import { currentUser } from "@clerk/nextjs/server";
 
 import { siteConfig } from "@/config/site";
-import {
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
-} from '@clerk/nextjs'
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import {
   Activity,
@@ -72,8 +67,8 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="flex w-full flex-col border-b">
-      <header className="container sticky top-0 flex h-20 items-center gap-4 bg-background px-4 md:px-6">
+    <div className="flex w-full flex-col border-b bg-primary dark:bg-background">
+      <header className="container sticky top-0 flex h-20 items-center gap-4 px-4 md:px-6">
         {/* DRAWER */}
         {/* HOW TO CLOSE THE DRAWER AFTER CLICKING ON A LINK */}
         {/* https://github.com/saadeghi/daisyui/discussions/2444 */}
@@ -82,9 +77,9 @@ export default function Navbar() {
             <Button
               variant="outline"
               size="icon"
-              className="shrink-0 md:hidden"
+              className="shrink-0 border-primary-foreground/50 dark:border-border md:hidden"
             >
-              <Menu className="h-5 w-5" />
+              <Menu className="h-5 w-5 text-primary-foreground dark:text-foreground" />
               <span className="sr-only">Toggle navigation menu</span>
             </Button>
           </SheetTrigger>
@@ -102,7 +97,6 @@ export default function Navbar() {
                   const isActive = pathname === href;
 
                   return (
-
                     <Link
                       key={i}
                       href={href}
@@ -124,8 +118,8 @@ export default function Navbar() {
         {/* LOGO AND LEFT SIDE MENUS */}
         <nav className="ie md:text-md flex-col gap-6 text-lg md:flex md:flex-row md:items-center md:gap-5 lg:gap-10">
           <Link href="/" className="flex items-center space-x-2">
-            <Icons.logo className="h-6 w-6" />
-            <span className="inline-block text-nowrap text-xl font-bold md:text-3xl">
+            <Icons.logo className="h-6 w-6 text-primary-foreground dark:text-foreground" />
+            <span className="inline-block text-nowrap text-xl font-bold text-primary-foreground dark:text-foreground md:text-3xl">
               {siteConfig.name}
             </span>
           </Link>
@@ -137,8 +131,10 @@ export default function Navbar() {
                 key={i}
                 href={href}
                 className={`${
-                  isActive ? "text-primary" : "text-muted-foreground"
-                } transition-colors hover:text-foreground text-nowrap hidden md:block font-semibold`}
+                  isActive
+                    ? "text-primary-foreground dark:text-primary"
+                    : "text-primary-foreground/70 dark:text-muted-foreground"
+                } transition-colors hover:text-primary-foreground dark:hover:text-foreground text-nowrap hidden md:block font-semibold`}
               >
                 {label}
               </Link>
@@ -157,8 +153,10 @@ export default function Navbar() {
                 key={i}
                 href={href}
                 className={`${
-                  isActive ? "text-primary" : "text-muted-foreground"
-                } transition-colors hover:text-foreground text-nowrap hidden md:block font-semibold`}
+                  isActive
+                    ? "text-primary-foreground dark:text-primary"
+                    : "text-primary-foreground/70 dark:text-muted-foreground"
+                } transition-colors hover:text-primary-foreground dark:hover:text-foreground text-nowrap hidden md:block font-semibold`}
               >
                 {label}
               </Link>
@@ -166,11 +164,11 @@ export default function Navbar() {
           })}
           <ThemeToggle />
           <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
           {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">

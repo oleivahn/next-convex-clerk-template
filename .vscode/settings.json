@@ -5,5 +5,26 @@
     "app/page.tsx": "Home Page",
     "app/api/test/route.ts": "Test Route",
     "app/api/(auth)/users/route.ts": "Auth Route"
+  },
+  "workbench.colorCustomizations": {
+    "window.activeBorder": "#a5a5a5",
+    "window.inactiveBorder": "#ff0000",
+    "debugConsole.infoForeground": "#dadada",
+    "diffEditor.removedTextBackground": "#d6060677",
+    "diffEditor.insertedTextBackground": "#049c0444",
+    "editorCursor.foreground": "#22ff00",
+    "terminalCursor.foreground": "#22ff00",
+    "statusBar.foreground": "#dadada",
+    "statusBar.debuggingBackground": "#ad1c1ce3",
+    "statusBar.debuggingForeground": "#dadada",
+    "statusBar.debuggingBorder": "#791c1ce3",
+    "statusBar.noFolderBackground": "#0073a8fb",
+    "statusBar.noFolderBorder": "#27b8fbe3",
+    "statusBar.noFolderForeground": "#e4e4e4",
+    "activityBar.background": "#442608",
+    "titleBar.activeBackground": "#0c4b89",
+    "titleBar.inactiveBackground": "#376390",
+    "titleBar.activeForeground": "#FEF9F5",
+    "titleBar.inactiveForeground": "#FEF9F5"
   }
 }
