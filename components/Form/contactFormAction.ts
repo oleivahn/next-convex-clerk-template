@@ -7,7 +7,7 @@ import User from "@/models/user";
 import { green, red } from "console-log-colors";
 import { revalidatePath } from "next/cache";
 
-// - What we return
+// - What we return from the server action
 export type FormState = {
   message: string;
   data: object | null | string;
@@ -28,12 +28,14 @@ export const contactFormAction = async (data: FormData): Promise<FormState> => {
   }
 
   try {
-    // Do something here
+    // Connect to the database
     await connectDB();
 
+    // Create a new user
     const newUser = new User(formData);
     await newUser.save();
 
+    // Revalidate the path
     revalidatePath("/contactUs");
     console.log(green("Record created successfully"));
     return {

@@ -1,9 +1,6 @@
 import * as React from "react";
-
-// import InputForm from "@/components/Form/Form-example";
-import Form from "@/components/Form/Form";
+import ContactForm from "@/components/Form/contactForm";
 
 export default async function ContactUs() {
-  return <Form />;
-  // return <InputForm />;
+  return <ContactForm />;
 }

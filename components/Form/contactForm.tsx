@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { schema } from "./formSchema";
-import { contactFormAction } from "./contactFormAction";
+import { submitContactForm } from "@/lib/data/contact";
 
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -75,29 +75,29 @@ const ContactForm = () => {
 
   // - Form Submit
   const submitForm = async (values: z.infer<typeof schema>) => {
-    const formData = new FormData();
-    formData.append("name", values.name);
-    formData.append("email", values.email);
-    formData.append("message", values.message);
-    formData.append("location", values.location);
-    formData.append("shiftDate", values.shiftDate.toLocaleString()); // Convert Date object to string
-
-    console.log("🚧 LOG [ formData ]:", formData);
-
     setPending(true);
-    // wait 1 second for testing purposes
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
+    setError("");
 
-    const res = await contactFormAction(formData);
+    try {
+      const res = await submitContactForm(values);
 
-    // Reset the form
-    form.reset(defaultValues);
-    setPending(false);
-    console.log("📗 [ Client message: ]:", res.message);
-    console.log("📗 [ Data Submitted ]:", res.data);
-    if (res.error) {
-      console.error("📕 [ Error ]:", res.message);
-      setError(res.message);
+      console.log("📗 [ Client message: ]:", res.message);
+      console.log("📗 [ Data Submitted ]:", res.data);
+
+      if (res.error) {
+        console.error("📕 [ Error ]:", res.message);
+        setError(res.message);
+      } else {
+        // Reset the form only on success
+        form.reset(defaultValues);
+      }
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
+      console.error("📕 [ Error ]:", errorMessage);
+      setError(errorMessage);
+    } finally {
+      setPending(false);
     }
   };
 
