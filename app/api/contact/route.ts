@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/database-connection";
-import { User } from "@/lib/models";
 import { contactSchema } from "@/lib/schemas";
 
 // - Submit the form to the API
@@ -8,13 +6,10 @@ export const POST = async (request: Request) => {
   try {
     const body = await request.json();
 
-    // backend data validation once more before sending to the database
-    const parsed = contactSchema.safeParse({
-      ...body,
-      shiftDate: new Date(body.shiftDate),
-    });
+    // - Backend data validation once more before sending to the database
+    const parsed = contactSchema.safeParse(body);
 
-    // if the data is invalid, return an error
+    // - If the data is invalid, return an error
     if (!parsed.success) {
       return NextResponse.json(
         { message: "Invalid form data", errors: parsed.error.errors },
@@ -23,22 +18,13 @@ export const POST = async (request: Request) => {
     }
 
     console.log("📗 [ Sending form data to the API route /contact ]");
+    console.log("📗 [ Data Received ]:", parsed.data);
 
-    // - Connect to the database
-    await connectDB();
+    // TODO: Add database integration here
 
-    // - Create object to save to the database
-    const newUser = new User({
-      ...parsed.data,
-      shiftDate: parsed.data.shiftDate.toLocaleString(),
-    });
-
-    // - Save the new user/contact record to the database
-    await newUser.save();
-
-    // - Respond with the new user/contact record
+    // - Respond with success
     return NextResponse.json(
-      { message: "Contact form submitted successfully", data: newUser },
+      { message: "Contact form submitted successfully", data: parsed.data },
       { status: 201 }
     );
   } catch (error) {
@@ -46,7 +32,7 @@ export const POST = async (request: Request) => {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
 
-    console.error("Error submitting contact form:", errorMessage);
+    console.error("📕 [ Error ]:", errorMessage);
 
     return NextResponse.json(
       { message: "Error submitting contact form", error: errorMessage },

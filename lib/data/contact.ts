@@ -1,6 +1,6 @@
 import { contactSchema, type ContactFormData } from "@/lib/schemas";
 
-// Re-export type for convenience
+// - Re-export type for convenience
 export type { ContactFormData };
 
 export type ContactResponse = {
@@ -9,7 +9,7 @@ export type ContactResponse = {
   error?: boolean;
 };
 
-// API base URL - uses relative path for same-origin requests
+// - API base URL - uses relative path for same-origin requests
 const API_BASE = "/api";
 
 /**
@@ -36,10 +36,7 @@ export const submitContactForm = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        ...data,
-        shiftDate: data.shiftDate.toISOString(),
-      }),
+      body: JSON.stringify(data),
     });
 
     const result = await response.json();

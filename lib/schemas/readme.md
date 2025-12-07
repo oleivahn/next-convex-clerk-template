@@ -1,10 +1,16 @@
 # Schemas
 
-Schemas are used by Zod to validate the data before it is sent to the database.
+This folder contains Zod validation schemas for data validation.
 
 ## Description
 
-This folder contains the schemas for the data validation.
-They are only used to validate the data before it is sent to the database.
+Schemas are used for:
 
-Used by the client and server to validate the data. The library used is Zod.
+- Form validation (client-side)
+- API request validation (server-side)
+- Type inference for TypeScript
+
+## Files
+
+- `contact.ts` - Contact form validation schema (name, message)
+- `index.ts` - Re-exports all schemas for convenient imports

@@ -20,7 +20,7 @@ When generating code, please adhere to the following guidelines to ensure consis
 - Use array methods like `map`, `filter`, and `reduce` instead of traditional loops when working with arrays.
 - Use `forEach` loops for iterating over iterable objects instead of traditional `for` loops when appropriate.
 - Use `try/catch` blocks for error handling in asynchronous code.
-- All application logic must go in the "./lib" folder.
+- All application logic should go in the "./lib" folder when possible. If documentation says to create a different folder in a different location, follow the instructions. Such as ./utils or ./services for some services like dbs or supabase, etc. But try to keep it in the ./lib folder if possible. Priotiry is to follow best practices and organization.
 - All React components must go in the "./components" folder.
 - Use a data layer for all data fetching and mutations.
 - Use a .css file and className for styling components. Unless the project uses tailwind, in which case use tailwind classes.

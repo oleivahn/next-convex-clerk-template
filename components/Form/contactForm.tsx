@@ -1,17 +1,12 @@
 "use client";
 import React, { useState } from "react";
 
-import Link from "next/link";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { contactSchema } from "@/lib/schemas";
 import { submitContactForm } from "@/lib/data/contact";
-
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 // - UI Components
 import { Button } from "../ui/button";
@@ -32,21 +27,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 
 //
@@ -56,14 +36,9 @@ import { Textarea } from "@/components/ui/textarea";
 const ContactForm = () => {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
-  const ref = React.useRef<HTMLFormElement>(null);
 
   const defaultValues = {
     name: "",
-    shiftDate: new Date(),
-    // shiftDate: undefined,
-    location: "",
-    email: "",
     message: "",
   };
 
@@ -88,7 +63,7 @@ const ContactForm = () => {
         console.error("📕 [ Error ]:", res.message);
         setError(res.message);
       } else {
-        // Reset the form only on success
+        // - Reset the form only on success
         form.reset(defaultValues);
       }
     } catch (error) {
@@ -118,7 +93,6 @@ const ContactForm = () => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(submitForm)}
-              ref={ref}
               className="space-y-6"
             >
               {/* Name */}
@@ -130,99 +104,6 @@ const ContactForm = () => {
                     <FormLabel>Name</FormLabel>
                     <FormControl>
                       <Input placeholder="Add your name" {...field} />
-                    </FormControl>
-                    <FormDescription></FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Dropdown */}
-              <FormField
-                control={form.control}
-                name="location"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Location</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      value={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          {field.value ? (
-                            <SelectValue placeholder="Select a warehouse" />
-                          ) : (
-                            "Select a warehouse"
-                          )}
-                          {/* <SelectValue placeholder="Select a warehouse" /> */}
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="fidelitone">Fidelitone</SelectItem>
-                        <SelectItem value="hubGroup">Hub Group</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      You can manage email addresses in your{" "}
-                      <Link href="/examples/forms">email settings</Link>.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Date */}
-              <FormField
-                control={form.control}
-                name="shiftDate"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Shift Date</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-[240px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date("1900-01-01")
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormDescription></FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              {/* Email */}
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter an email address" {...field} />
                     </FormControl>
                     <FormDescription></FormDescription>
                     <FormMessage />
@@ -256,7 +137,6 @@ const ContactForm = () => {
                 >
                   {pending ? "Sending..." : "Send Message"}
                 </Button>
-                {/* <SubmitButton /> */}
               </div>
               {error && (
                 <>

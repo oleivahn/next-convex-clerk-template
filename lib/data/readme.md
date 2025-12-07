@@ -1,6 +1,15 @@
-# Data
+# Data Layer
 
-This folder contains the data layer for the application.
-It is used to fetch and mutate data from the database.
+This folder contains the data layer functions for interacting with the API and database.
 
-Used by the client to fetch and mutate data to and from the database.
+## Description
+
+Data layer functions handle:
+
+- API requests to backend endpoints
+- Data validation before submission
+- Response handling and error management
+
+## Files
+
+- `contact.ts` - Functions for submitting and handling contact form data

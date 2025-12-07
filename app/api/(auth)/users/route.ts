@@ -1,20 +1,20 @@
 import { NextResponse } from "next/server";
-import connectDB from "@/lib/database-connection";
-import { User } from "@/lib/models";
 
 export const GET = async () => {
   try {
-    // - Connect to the database
-    await connectDB();
+    // TODO: Add database integration here
+    const records: unknown[] = [];
 
-    const users = await User.find();
+    console.log("📗 [ Data Retrieved ]:", records);
 
-    return new NextResponse(JSON.stringify(users), { status: 200 });
+    return NextResponse.json(records, { status: 200 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";
 
+    console.error("📕 [ Error ]:", message);
+
     return NextResponse.json(
-      { message: "Error in fetching users", error: message },
+      { message: "Error in fetching records", error: message },
       { status: 500 }
     );
   }
@@ -24,22 +24,20 @@ export const POST = async (request: Request) => {
   try {
     const body = await request.json();
 
-    await connectDB();
+    // TODO: Add database integration here
+    console.log("📗 [ Data Received ]:", body);
 
-    const newUser = new User(body);
-    const user = await newUser.save();
-
-    return new NextResponse(
-      JSON.stringify({ message: "User is created", user: newUser }),
+    return NextResponse.json(
+      { message: "Record is created", data: body },
       { status: 201 }
     );
   } catch (error: unknown) {
     const errorMessage = (error as Error).message;
 
-    console.log("There was an error creating a new user:", errorMessage);
+    console.error("📕 [ Error ]:", errorMessage);
 
     return NextResponse.json(
-      { message: "Error creating user", error: errorMessage },
+      { message: "Error creating record", error: errorMessage },
       { status: 500 }
     );
   }
