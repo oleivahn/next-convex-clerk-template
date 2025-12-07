@@ -12,11 +12,10 @@ const Hero = () => {
             <div className="w-full px-4 lg:w-1/2">
               <div className="mb-12 max-w-[540px] lg:mb-0">
                 <h2 className="text-dark mb-5 text-3xl font-bold leading-tight dark:text-white sm:text-[40px] sm:leading-[1.2]">
-                  🚧👷🏼 EHC Delivery 🚧
+                  🚧👷🏼 Lei Solutions 🚧
                 </h2>
                 <p className="text-body-color dark:text-dark-6 mb-10 text-base leading-relaxed">
-                  The main EHC Website is currently under construction. We will
-                  let our customers know when it is ready for use.
+                  Upon this rock I will build my church.
                   <br />
                   <br />
                   In the meantime, you can send us an email and we will get back

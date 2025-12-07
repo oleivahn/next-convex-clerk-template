@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "EHC Delivery",
+  name: "Lei Solutions",
   description:
     "A delivery company know for its customer service and personal touch to clients.",
   mainNav: [

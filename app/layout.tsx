@@ -4,9 +4,7 @@ import { cn } from "@/lib/utils";
 
 import { ThemeProvider } from "@/components/theme-provider";
 
-import {
-  ClerkProvider,
-} from '@clerk/nextjs';
+import { ClerkProvider } from "@clerk/nextjs";
 
 import { dark } from "@clerk/themes";
 
@@ -14,7 +12,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "EHC Delivery",
+  title: "Lei Solutions",
   description: "Service you can trust",
   icons: {
     icon: ["/favicon.ico?=4"],
@@ -41,35 +39,36 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const theme = process.env.DEFAULT_THEME === "dark" ? dark : undefined;
 
   return (
-    <ClerkProvider       
+    <ClerkProvider
       appearance={{
         baseTheme: theme,
-    }}>
-    <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme={
-            process.env.DEFAULT_THEME ? process.env.DEFAULT_THEME : "light"
-          }
-          enableSystem
-          disableTransitionOnChange
+      }}
+    >
+      <html lang="en">
+        <body
+          className={cn(
+            "min-h-screen bg-background font-sans antialiased",
+            fontSans.variable
+          )}
         >
-          <div className="relative flex min-h-screen flex-col">
-            <Navbar />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme={
+              process.env.DEFAULT_THEME ? process.env.DEFAULT_THEME : "light"
+            }
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="relative flex min-h-screen flex-col">
+              <Navbar />
 
-            <div className="min-h-screen bg-darker pb-10 dark:bg-background">
-              {children}
+              <div className="min-h-screen bg-darker pb-10 dark:bg-background">
+                {children}
+              </div>
             </div>
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
+          </ThemeProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
