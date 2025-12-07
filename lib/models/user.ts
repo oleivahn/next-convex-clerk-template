@@ -1,5 +1,4 @@
 import { Schema, model, models } from "mongoose";
-import { date } from "zod";
 
 // - Define the schema for the User collection
 const UserSchema = new Schema({

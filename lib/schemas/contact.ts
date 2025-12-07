@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-// Info: All these fields mustd be supplied for proper validation
-export const schema = z.object({
-  // employeeId: z.string().min(2, {
-  //   message: "Employee ID must be at least 2 characters.",
-  // }),
+/**
+ * Contact form validation schema
+ * All fields must be supplied for proper validation
+ */
+export const contactSchema = z.object({
   name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
@@ -24,3 +24,6 @@ export const schema = z.object({
     message: "The message area cannot be empty, please add a message.",
   }),
 });
+
+// Export the inferred type for use in components and data layer
+export type ContactFormData = z.infer<typeof contactSchema>;

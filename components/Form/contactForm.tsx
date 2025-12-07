@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { schema } from "./formSchema";
+import { contactSchema } from "@/lib/schemas";
 import { submitContactForm } from "@/lib/data/contact";
 
 import { format } from "date-fns";
@@ -68,13 +68,13 @@ const ContactForm = () => {
   };
 
   // - Validation
-  const form = useForm<z.output<typeof schema>>({
-    resolver: zodResolver(schema),
+  const form = useForm<z.output<typeof contactSchema>>({
+    resolver: zodResolver(contactSchema),
     defaultValues: defaultValues,
   });
 
   // - Form Submit
-  const submitForm = async (values: z.infer<typeof schema>) => {
+  const submitForm = async (values: z.infer<typeof contactSchema>) => {
     setPending(true);
     setError("");
 

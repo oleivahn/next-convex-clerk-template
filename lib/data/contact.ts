@@ -1,8 +1,7 @@
-import { schema } from "@/components/Form/formSchema";
-import { z } from "zod";
+import { contactSchema, type ContactFormData } from "@/lib/schemas";
 
-// Types
-export type ContactFormData = z.infer<typeof schema>;
+// Re-export type for convenience
+export type { ContactFormData };
 
 export type ContactResponse = {
   message: string;
@@ -19,8 +18,8 @@ const API_BASE = "/api";
 export const submitContactForm = async (
   data: ContactFormData
 ): Promise<ContactResponse> => {
-  // Validate data before sending
-  const parsed = schema.safeParse(data);
+  // - Validate data first
+  const parsed = contactSchema.safeParse(data);
 
   if (!parsed.success) {
     return {
@@ -30,6 +29,7 @@ export const submitContactForm = async (
     };
   }
 
+  // - Submit the form to the API
   try {
     const response = await fetch(`${API_BASE}/contact`, {
       method: "POST",

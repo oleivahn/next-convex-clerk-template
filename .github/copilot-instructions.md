@@ -1,10 +1,8 @@
-# Ox Intructions for GitHub Copilot
-
 Javascript, React, Node.js
 
-## Copilot Instructions
+## Instructions
 
-When generating code with GitHub Copilot, please adhere to the following guidelines to ensure consistency and maintainability across the codebase:
+When generating code, please adhere to the following guidelines to ensure consistency and maintainability across the codebase:
 
 <!-- - Be friendly and professional in comments and documentation. -->
 
@@ -27,3 +25,15 @@ When generating code with GitHub Copilot, please adhere to the following guideli
 - Use a data layer for all data fetching and mutations.
 - Use a .css file and className for styling components. Unless the project uses tailwind, in which case use tailwind classes.
 - All configuration will be done with a .env file in the root directory. Create it there if it does not exist.
+- When creating inline comments, use the following format:
+  - `// - Comment`
+  - Also, capitalize the first letter of the comment.
+- When creating an action console.log, use the following format:
+  - `📗 [ Client message: ]`: This is a message from the client to the server.
+  - `📗 [ Data Submitted ]:`: This is the data that was submitted to the server.
+  - `📕 [ Error ]:`: This is an error message from the server.
+  - `📗 [ Data Received ]:`: This is the data that was received from the server.
+  - `📗 [ Data Updated ]:`: This is the data that was updated in the server.
+  - `📗 [ Data Deleted ]:`: This is the data that was deleted from the server.
+  - `📗 [ Data Retrieved ]:`: This is the data that was retrieved from the server.
+  - `📗 [ Data Created ]:`: This is the data that was created in the server.

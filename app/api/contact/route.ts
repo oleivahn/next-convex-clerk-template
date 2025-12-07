@@ -1,18 +1,20 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/database-connection";
-import User from "@/models/user";
-import { schema } from "@/components/Form/formSchema";
+import { User } from "@/lib/models";
+import { contactSchema } from "@/lib/schemas";
 
+// - Submit the form to the API
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
 
-    // Validate the incoming data
-    const parsed = schema.safeParse({
+    // backend data validation once more before sending to the database
+    const parsed = contactSchema.safeParse({
       ...body,
       shiftDate: new Date(body.shiftDate),
     });
 
+    // if the data is invalid, return an error
     if (!parsed.success) {
       return NextResponse.json(
         { message: "Invalid form data", errors: parsed.error.errors },
@@ -20,21 +22,27 @@ export const POST = async (request: Request) => {
       );
     }
 
-    // Connect to the database
+    console.log("📗 [ Sending form data to the API route /contact ]");
+
+    // - Connect to the database
     await connectDB();
 
-    // Create a new user/contact record
+    // - Create object to save to the database
     const newUser = new User({
       ...parsed.data,
       shiftDate: parsed.data.shiftDate.toLocaleString(),
     });
+
+    // - Save the new user/contact record to the database
     await newUser.save();
 
+    // - Respond with the new user/contact record
     return NextResponse.json(
       { message: "Contact form submitted successfully", data: newUser },
       { status: 201 }
     );
   } catch (error) {
+    // - If there is an error, return an error
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
 
