@@ -9,7 +9,6 @@
  */
 
 import type * as contactUs from "../contactUs.js";
-import type * as testTaskTable from "../testTaskTable.js";
 import type * as testTasks from "../testTasks.js";
 
 import type {
@@ -20,7 +19,6 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   contactUs: typeof contactUs;
-  testTaskTable: typeof testTaskTable;
   testTasks: typeof testTasks;
 }>;
 

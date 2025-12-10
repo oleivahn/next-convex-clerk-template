@@ -23,7 +23,7 @@ const Hero = () => {
                   <br />
                   Thank you for your understanding.
                 </p>
-                <Link href="/contactUs">
+                <Link href="/contact-us">
                   <Button size="lg" className="mr-4">
                     Contact Us
                   </Button>

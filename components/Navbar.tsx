@@ -58,12 +58,12 @@ export default function Navbar() {
 
   const LEFT_NAV_ITEMS = [
     { href: "/", label: "Home" },
-    { href: "/testimonies", label: "Testimonies" },
+    { href: "/database", label: "Database" },
   ];
 
   const RIGHT_NAV_ITEMS = [
     { href: "/pricing", label: "Pricing" },
-    { href: "/contactUs", label: "Contact Us" },
+    { href: "/contact-us", label: "Contact Us" },
   ];
 
   return (

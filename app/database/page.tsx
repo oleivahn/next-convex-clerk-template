@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const Testimonies = () => {
+const Database = () => {
   const [taskTest, setTaskTest] = useState("");
   const [pending, setPending] = useState(false);
   const [editingId, setEditingId] = useState<Id<"testTasks"> | null>(null);
@@ -164,4 +164,4 @@ const Testimonies = () => {
   );
 };
 
-export default Testimonies;
+export default Database;
