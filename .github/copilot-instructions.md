@@ -37,3 +37,4 @@ When generating code, please adhere to the following guidelines to ensure consis
   - `📗 [ Data Deleted ]:`: This is the data that was deleted from the server.
   - `📗 [ Data Retrieved ]:`: This is the data that was retrieved from the server.
   - `📗 [ Data Created ]:`: This is the data that was created in the server.
+- If the project uses Shadcn, use the Shadcn components and classes for styling.
