@@ -6,7 +6,8 @@
 npm run dev
 
 npx convex dev (Log in with Github)
-or
+# Convex connects thu a direct link on .env.local
+# Run the dashboard
 npx convex dashboard
 ```
 
