@@ -21,22 +21,23 @@ Run the dashboard
 
 ## Clerk
 
-#### From Clerk Dashboard we ONLY need the following variables:
+### Get the public keys:
 
-Create a new application with your desire name
-Make sure to grab the connection variables from Clerk and add them to a `.env` file in the root of your project.
+Create a new application with your desire name.
 
-Clerk -> App Dashboard -> Configure -> API Keys -> Grab the .env.local configs
+Grab the connection variables and add them to a `.env` or `.env.local`file in the root of your project.
+
+Clerk -> App Dashboard -> Configure -> API Keys (sidebar)-> Grab the .env.local configs
 
 `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=`
 
 `CLERK_SECRET_KEY=`
 
-### Extra configs on Clerk
+### Setup roles and metadata
 
-#### We need to setup roles and metadata
+#### **IMPORTANT:** We need to setup roles and metadata to enable Role based authorization and authentication
 
-- [ ] Must also go into Clerk -> App Dashboard -> Configure -> Sessions (Sidebar) -> Sessions
+- [ ] Clerk -> App Dashboard -> Configure -> Sessions (Sidebar) -> Sessions ->
       Customize session token -> And add the following on the claims box:
 
   ```
@@ -45,9 +46,9 @@ Clerk -> App Dashboard -> Configure -> API Keys -> Grab the .env.local configs
   }
   ```
 
-- [ ] Then each user that needs special privileges (roles) need to be added on a per user basis
+- [ ] Add roles per user basis
       Clerk -> App Dashboard -> User -> Click on a User
-      Scroll down to the **Metadata Section** and add the following on the **Public** input field (edit):
+      Scroll down to the **Metadata Section** and edit the **Public** input field and add the following:
 
   ```
   {
@@ -55,19 +56,16 @@ Clerk -> App Dashboard -> Configure -> API Keys -> Grab the .env.local configs
   }
   ```
 
+  `[ admin | moderator | user]`
+
 #### Then configure each route here on the app per needs
 
 #### Theme colors templates
 
 https://tweakcn.com/editor/theme
 
-#### Convex
-
-npx convex dev
-Log in with Github
-
 #### Development
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-#### Deploy on Vercel
+#### Deploy to Vercel
