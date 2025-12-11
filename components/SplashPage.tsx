@@ -53,9 +53,9 @@ const SplashPage = () => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-[hsl(214,15%,88%)] dark:bg-background">
       {/* - Background gradient and decorative elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10 dark:to-primary/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-primary/10 dark:from-background dark:via-background dark:to-primary/5" />
 
       {/* - Animated gradient orbs */}
       <div className="absolute -left-32 -top-32 h-96 w-96 animate-pulse rounded-full bg-primary/20 blur-3xl" />
