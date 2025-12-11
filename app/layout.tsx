@@ -5,12 +5,13 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
 
 import { dark } from "@clerk/themes";
 
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import SplashPage from "@/components/SplashPage";
 
 export const metadata: Metadata = {
   title: "Lei Solutions",
@@ -61,13 +62,21 @@ export default function RootLayout({ children }: RootLayoutProps) {
               enableSystem
               disableTransitionOnChange
             >
-              <div className="relative flex min-h-screen flex-col">
-                <Navbar />
+              {/* - Show splash page for non-authenticated users */}
+              <SignedOut>
+                <SplashPage />
+              </SignedOut>
 
-                <div className="min-h-screen bg-darker pb-10 dark:bg-background">
-                  {children}
+              {/* - Show app content for authenticated users */}
+              <SignedIn>
+                <div className="relative flex min-h-screen flex-col">
+                  <Navbar />
+
+                  <div className="min-h-screen bg-darker pb-10 dark:bg-background">
+                    {children}
+                  </div>
                 </div>
-              </div>
+              </SignedIn>
             </ThemeProvider>
           </ConvexClientProvider>
         </body>

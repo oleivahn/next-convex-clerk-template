@@ -1,0 +1,40 @@
+Javascript, React, Node.js
+
+## Instructions
+
+When generating code, please adhere to the following guidelines to ensure consistency and maintainability across the codebase:
+
+<!-- - Be friendly and professional in comments and documentation. -->
+
+- Use double quotes instead of single quotes for strings.
+- Prefer using `let` and `const` for variable declarations instead of `var`.
+- Variables should be named using camelCase.
+- Functions should be named using camelCase.
+- Use arrow functions for anonymous functions.
+- Always include semicolons at the end of statements.
+- Use template literals for string interpolation.
+- Use destructuring assignment for objects and arrays when appropriate.
+- Prefer using `async/await` for asynchronous code instead of Promises.
+- Use `===` and `!==` for comparisons instead of `==` and `!=`.
+- Use switch statements for multiple conditional branches instead of multiple `if-else` statements only if it is more than 3 levels deep. One "if" and "else if" is preferred for up to 3 levels.
+- Use array methods like `map`, `filter`, and `reduce` instead of traditional loops when working with arrays.
+- Use `forEach` loops for iterating over iterable objects instead of traditional `for` loops when appropriate.
+- Use `try/catch` blocks for error handling in asynchronous code.
+- All application logic should go in the "./lib" folder when possible. If documentation says to create a different folder in a different location, follow the instructions. Such as ./utils or ./services for some services like dbs or supabase, etc. But try to keep it in the ./lib folder if possible. Priotiry is to follow best practices and organization.
+- All React components must go in the "./components" folder.
+- Use a data layer for all data fetching and mutations.
+- Use a .css file and className for styling components. Unless the project uses tailwind, in which case use tailwind classes.
+- All configuration will be done with a .env file in the root directory. Create it there if it does not exist.
+- When creating inline comments, use the following format:
+  - `// - Comment`
+  - Also, capitalize the first letter of the comment.
+- When creating an action console.log, use the following format:
+  - `📗 [ Client message: ]`: This is a message from the client to the server.
+  - `📗 [ Data Submitted ]:`: This is the data that was submitted to the server.
+  - `📕 [ Error ]:`: This is an error message from the server.
+  - `📗 [ Data Received ]:`: This is the data that was received from the server.
+  - `📗 [ Data Updated ]:`: This is the data that was updated in the server.
+  - `📗 [ Data Deleted ]:`: This is the data that was deleted from the server.
+  - `📗 [ Data Retrieved ]:`: This is the data that was retrieved from the server.
+  - `📗 [ Data Created ]:`: This is the data that was created in the server.
+- If the project uses Shadcn, use the Shadcn components and classes for styling.

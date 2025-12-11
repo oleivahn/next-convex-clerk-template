@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { currentUser } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 
 import { siteConfig } from "@/config/site";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
@@ -49,20 +49,44 @@ import {
 import { ThemeToggle } from "./Theme-toggle";
 
 import { Icons } from "@/components/icons";
+import type { UserRole } from "@/lib/auth";
+
+// - Nav item type with optional role requirement
+type NavItem = {
+  href: string;
+  label: string;
+  requiredRole?: UserRole;
+};
 
 export default function Navbar() {
   // - How to set colors for active links
   // https://stackoverflow.com/questions/68978743/tailwindcss-active-link-text-color-not-changing
   const pathname = usePathname();
-  // const user = await currentUser();
+  const { user } = useUser();
 
-  const LEFT_NAV_ITEMS = [
+  // - Get user role from public metadata
+  const userRole = (user?.publicMetadata?.role as UserRole) || "user";
+
+  // - Role hierarchy for checking access
+  const roleHierarchy: Record<UserRole, number> = {
+    user: 1,
+    moderator: 2,
+    admin: 3,
+  };
+
+  // - Check if user has required role
+  const hasAccess = (requiredRole?: UserRole) => {
+    if (!requiredRole) return true;
+    return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
+  };
+
+  const LEFT_NAV_ITEMS: NavItem[] = [
     { href: "/", label: "Home" },
-    { href: "/database", label: "Database" },
+    { href: "/admin", label: "Admin", requiredRole: "admin" },
   ];
 
-  const RIGHT_NAV_ITEMS = [
-    { href: "/pricing", label: "Pricing" },
+  const RIGHT_NAV_ITEMS: NavItem[] = [
+    { href: "/database", label: "Database", requiredRole: "admin" },
     { href: "/contact-us", label: "Contact Us" },
   ];
 
@@ -92,8 +116,9 @@ export default function Navbar() {
                 <Package2 className="h-6 w-6" />
                 <span className="sr-only">Acme Inc</span>
               </Link>
-              {[...LEFT_NAV_ITEMS, ...RIGHT_NAV_ITEMS].map(
-                ({ href, label }, i) => {
+              {[...LEFT_NAV_ITEMS, ...RIGHT_NAV_ITEMS]
+                .filter((item) => hasAccess(item.requiredRole))
+                .map(({ href, label }, i) => {
                   const isActive = pathname === href;
 
                   return (
@@ -110,8 +135,7 @@ export default function Navbar() {
                       {label}
                     </Link>
                   );
-                }
-              )}
+                })}
             </nav>
           </SheetContent>
         </Sheet>
@@ -123,45 +147,48 @@ export default function Navbar() {
               {siteConfig.name}
             </span>
           </Link>
-          {LEFT_NAV_ITEMS.map(({ href, label }, i) => {
-            const isActive = pathname === href;
+          {LEFT_NAV_ITEMS.filter((item) => hasAccess(item.requiredRole)).map(
+            ({ href, label }, i) => {
+              const isActive = pathname === href;
 
-            return (
-              <Link
-                key={i}
-                href={href}
-                className={`${
-                  isActive
-                    ? "text-primary-foreground dark:text-primary"
-                    : "text-primary-foreground/70 dark:text-muted-foreground"
-                } transition-colors hover:text-primary-foreground dark:hover:text-foreground text-nowrap hidden md:block font-semibold`}
-              >
-                {label}
-              </Link>
-            );
-          })}
+              return (
+                <Link
+                  key={i}
+                  href={href}
+                  className={`${
+                    isActive
+                      ? "text-primary-foreground dark:text-primary"
+                      : "text-primary-foreground/70 dark:text-muted-foreground"
+                  } transition-colors hover:text-primary-foreground dark:hover:text-foreground text-nowrap hidden md:block font-semibold`}
+                >
+                  {label}
+                </Link>
+              );
+            }
+          )}
         </nav>
 
         {/* RIGHT SIDE MENUS */}
         <div className="ml-auto flex items-center gap-4 text-lg md:gap-2 lg:gap-10">
-          {RIGHT_NAV_ITEMS.map(({ href, label }, i) => {
-            // console.log("📗 LOG [ href ]:", href, label, i);
-            const isActive = pathname === href;
+          {RIGHT_NAV_ITEMS.filter((item) => hasAccess(item.requiredRole)).map(
+            ({ href, label }, i) => {
+              const isActive = pathname === href;
 
-            return (
-              <Link
-                key={i}
-                href={href}
-                className={`${
-                  isActive
-                    ? "text-primary-foreground dark:text-primary"
-                    : "text-primary-foreground/70 dark:text-muted-foreground"
-                } transition-colors hover:text-primary-foreground dark:hover:text-foreground text-nowrap hidden md:block font-semibold`}
-              >
-                {label}
-              </Link>
-            );
-          })}
+              return (
+                <Link
+                  key={i}
+                  href={href}
+                  className={`${
+                    isActive
+                      ? "text-primary-foreground dark:text-primary"
+                      : "text-primary-foreground/70 dark:text-muted-foreground"
+                  } transition-colors hover:text-primary-foreground dark:hover:text-foreground text-nowrap hidden md:block font-semibold`}
+                >
+                  {label}
+                </Link>
+              );
+            }
+          )}
           <ThemeToggle />
           <SignedOut>
             <SignInButton />
