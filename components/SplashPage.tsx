@@ -5,24 +5,25 @@ import { Button } from "./ui/button";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
 import { ArrowRight, Shield, Zap, Users } from "lucide-react";
+import { ThemeToggle } from "./Theme-toggle";
 
 const SplashPage = () => {
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* - Background gradient and decorative elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10 dark:to-primary/5" />
-      
+
       {/* - Animated gradient orbs */}
-      <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-primary/20 blur-3xl animate-pulse" />
-      <div className="absolute -right-32 top-1/4 h-80 w-80 rounded-full bg-accent/30 blur-3xl animate-pulse delay-700" />
-      <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-primary/15 blur-3xl animate-pulse delay-1000" />
-      
+      <div className="absolute -left-32 -top-32 h-96 w-96 animate-pulse rounded-full bg-primary/20 blur-3xl" />
+      <div className="absolute -right-32 top-1/4 h-80 w-80 animate-pulse rounded-full bg-accent/30 blur-3xl delay-700" />
+      <div className="absolute bottom-0 left-1/3 h-72 w-72 animate-pulse rounded-full bg-primary/15 blur-3xl delay-1000" />
+
       {/* - Grid pattern overlay */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-          backgroundSize: "40px 40px"
+          backgroundSize: "40px 40px",
         }}
       />
 
@@ -36,11 +37,20 @@ const SplashPage = () => {
               {siteConfig.name}
             </span>
           </div>
-          <SignInButton mode="modal">
-            <Button variant="outline" className="border-primary/50 hover:bg-primary/10">
-              Sign In
-            </Button>
-          </SignInButton>
+          <div className="flex items-center gap-2">
+            <ThemeToggle
+              className="border border-orange-400 dark:border-transparent"
+              moonClassName="text-400"
+            />
+            <SignInButton mode="modal">
+              <Button
+                variant="outline"
+                className="border-primary/50 hover:bg-primary/10"
+              >
+                Sign In
+              </Button>
+            </SignInButton>
+          </div>
         </header>
 
         {/* - Hero section */}
@@ -78,24 +88,27 @@ const SplashPage = () => {
 
             {/* - Subtitle */}
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground md:text-xl">
-              Experience excellence with {siteConfig.name}. We deliver more than just 
-              services — we deliver peace of mind, reliability, and a personal touch 
-              that makes all the difference.
+              Experience excellence with {siteConfig.name}. We deliver more than
+              just services — we deliver peace of mind, reliability, and a
+              personal touch that makes all the difference.
             </p>
 
             {/* - CTA buttons */}
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <SignInButton mode="modal">
-                <Button size="lg" className="group h-14 px-8 text-lg shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30">
+                <Button
+                  size="lg"
+                  className="group h-14 px-8 text-lg shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30"
+                >
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
               </SignInButton>
-              <Button 
-                size="lg" 
-                variant="outline" 
+              <Button
+                size="lg"
+                variant="outline"
                 className="h-14 border-2 px-8 text-lg"
-                onClick={() => window.location.href = "/contact-us"}
+                onClick={() => (window.location.href = "/contact-us")}
               >
                 Contact Us
               </Button>
@@ -124,27 +137,29 @@ const SplashPage = () => {
 
         {/* - Footer */}
         <footer className="container py-8 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+          </p>
         </footer>
       </div>
     </div>
   );
 };
 
-const FeatureCard = ({ 
-  icon, 
-  title, 
-  description 
-}: { 
-  icon: React.ReactNode; 
-  title: string; 
+const FeatureCard = ({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
   description: string;
 }) => {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card/80 hover:shadow-lg">
       {/* - Gradient hover effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-      
+
       <div className="relative z-10 flex flex-col items-center text-center">
         <div className="mb-4 rounded-xl bg-primary/10 p-3 text-primary transition-colors group-hover:bg-primary/20">
           {icon}
@@ -157,4 +172,3 @@ const FeatureCard = ({
 };
 
 export default SplashPage;
-
