@@ -1,8 +1,8 @@
-## Getting Started
-
-`npm i`
+# Getting Started
 
 ## Npm
+
+`npm i`
 
 #### First, run the development server and convex on different terminals:
 
@@ -12,8 +12,6 @@ npx convex dev (Log in with Github)
 ```
 
 ## Convex
-
----
 
 Convex connects thu a direct link on .env.local
 
