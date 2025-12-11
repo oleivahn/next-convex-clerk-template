@@ -4,10 +4,54 @@ import { SignInButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
-import { ArrowRight, Shield, Zap, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Shield,
+  Zap,
+  Users,
+  Mail,
+  User,
+  MessageSquare,
+  Send,
+  CheckCircle,
+} from "lucide-react";
+import { useState } from "react";
 import { ThemeToggle } from "./Theme-toggle";
 
 const SplashPage = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // - Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    console.log("📗 [ Data Submitted ]:", formData);
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    setFormData({ name: "", email: "", message: "" });
+
+    // - Reset success message after 5 seconds
+    setTimeout(() => setIsSubmitted(false), 5000);
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* - Background gradient and decorative elements */}
@@ -108,7 +152,11 @@ const SplashPage = () => {
                 size="lg"
                 variant="outline"
                 className="h-14 border-2 px-8 text-lg"
-                onClick={() => (window.location.href = "/contact-us")}
+                onClick={() =>
+                  document
+                    .getElementById("contact-form")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 Contact Us
               </Button>
@@ -132,6 +180,127 @@ const SplashPage = () => {
               title="Personal Touch"
               description="We treat every client like family, providing personalized solutions just for you."
             />
+          </div>
+
+          {/* - Contact Form Section */}
+          <div id="contact-form" className="mt-24 w-full max-w-2xl scroll-mt-8">
+            <div className="mb-8 text-center">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                <Mail className="h-4 w-4" />
+                Get in Touch
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                Let&apos;s Start a Conversation
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Have questions? We&apos;d love to hear from you. Send us a
+                message and we&apos;ll respond as soon as possible.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="relative">
+              {/* - Form card with glassmorphism */}
+              <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 p-8 backdrop-blur-sm transition-all hover:border-primary/20 hover:shadow-lg">
+                {/* - Gradient background effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+
+                <div className="relative z-10 space-y-6">
+                  {/* - Name field */}
+                  <div className="group">
+                    <label
+                      htmlFor="name"
+                      className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground"
+                    >
+                      <User className="h-4 w-4 text-primary" />
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="John Doe"
+                      className="w-full rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+
+                  {/* - Email field */}
+                  <div className="group">
+                    <label
+                      htmlFor="email"
+                      className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground"
+                    >
+                      <Mail className="h-4 w-4 text-primary" />
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="john@example.com"
+                      className="w-full rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+
+                  {/* - Message field */}
+                  <div className="group">
+                    <label
+                      htmlFor="message"
+                      className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground"
+                    >
+                      <MessageSquare className="h-4 w-4 text-primary" />
+                      Your Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      placeholder="Tell us how we can help you..."
+                      className="w-full resize-none rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+
+                  {/* - Submit button */}
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || isSubmitted}
+                    className="group h-12 w-full text-base shadow-lg shadow-primary/25 transition-all hover:shadow-xl hover:shadow-primary/30 disabled:opacity-70"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground" />
+                        Sending...
+                      </>
+                    ) : isSubmitted ? (
+                      <>
+                        <CheckCircle className="mr-2 h-5 w-5" />
+                        Message Sent!
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </Button>
+
+                  {/* - Success message */}
+                  {isSubmitted && (
+                    <p className="text-center text-sm text-green-600 dark:text-green-400">
+                      Thank you! We&apos;ll get back to you soon.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </form>
           </div>
         </main>
 
