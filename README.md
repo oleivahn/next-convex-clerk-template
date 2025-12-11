@@ -1,28 +1,35 @@
 ## Getting Started
 
+`npm i`
+
+## Npm
+
 #### First, run the development server and convex on different terminals:
 
 ```bash
 npm run dev
-
 npx convex dev (Log in with Github)
-# Convex connects thu a direct link on .env.local
-# Run the dashboard
-npx convex dashboard
 ```
 
--
--
--
+## Convex
+
+---
+
+Convex connects thu a direct link on .env.local
+
+Run the dashboard
+`npx convex dashboard`
+
+## Clerk
 
 #### From Clerk Dashboard we ONLY need the following variables:
 
 Make sure to get the .env variables from Clerk and add them to a `.env` file in the root of your project.
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
+`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=`
+`CLERK_SECRET_KEY=`
 
-## Extra configs on Clerk
+#### Extra configs on Clerk
 
 - [ ] Must also go into Clerk -> App Dashboard -> Configure
       Customize session token -> And add the following on the claims box:
@@ -43,10 +50,7 @@ CLERK_SECRET_KEY=
       }
       ```
 
-## Then configure each route here on the app per needs
-
--
--
+#### Then configure each route here on the app per needs
 
 #### Theme colors templates
 
@@ -61,6 +65,4 @@ Log in with Github
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deploy on Vercel
-
-# next-template-shadcn
+#### Deploy on Vercel
