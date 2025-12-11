@@ -69,3 +69,9 @@ https://tweakcn.com/editor/theme
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 #### Deploy to Vercel
+
+I only linked the GitHub repo to Vercel and that seemed to deploy just fine.
+Copy the `.env` configs though.
+
+Just in case, I saw this on documentation somewhere in case there are issues.
+`npx convex deploy --cmd 'npm run build'`
