@@ -1,6 +1,6 @@
 # Getting Started
 
-## Npm
+## Install the packages
 
 `npm i`
 
@@ -9,6 +9,7 @@
 ```bash
 npm run dev
 npx convex dev (Log in with Github)
+// connect to test-app
 ```
 
 ## Convex
@@ -22,15 +23,20 @@ Run the dashboard
 
 #### From Clerk Dashboard we ONLY need the following variables:
 
-Make sure to get the .env variables from Clerk and add them to a `.env` file in the root of your project.
+Create a new application with your desire name
+Make sure to grab the connection variables from Clerk and add them to a `.env` file in the root of your project.
+
+Clerk -> App Dashboard -> Configure -> API Keys -> Grab the .env.local configs
 
 `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=`
 
 `CLERK_SECRET_KEY=`
 
-#### Extra configs on Clerk
+### Extra configs on Clerk
 
-- [ ] Must also go into Clerk -> App Dashboard -> Configure
+#### We need to setup roles and metadata
+
+- [ ] Must also go into Clerk -> App Dashboard -> Configure -> Sessions (Sidebar) -> Sessions
       Customize session token -> And add the following on the claims box:
 
   ```
