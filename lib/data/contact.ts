@@ -1,4 +1,7 @@
-import { contactSchema, type ContactFormData } from "@/lib/schemas";
+import {
+  contactSchema,
+  type ContactFormData,
+} from "@/lib/formValidationSchemas";
 
 // - Re-export type for convenience
 export type { ContactFormData };

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { contactSchema } from "@/lib/schemas";
+import { contactSchema } from "@/lib/formValidationSchemas";
 
 // - Submit the form to the API
 export const POST = async (request: Request) => {

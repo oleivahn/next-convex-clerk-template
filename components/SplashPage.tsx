@@ -17,39 +17,43 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { ThemeToggle } from "./Theme-toggle";
+import { splashFormValidationSchema } from "@/lib/formValidationSchemas";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 const SplashPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const defaultValues = {
+    name: "",
+    email: "",
+    message: "",
+  };
+
+  // - Validation
+  const form = useForm<z.output<typeof splashFormValidationSchema>>({
+    resolver: zodResolver(splashFormValidationSchema),
+    defaultValues: defaultValues,
+  });
+
+  // - Form Submit
+  const submitForm = async (
+    values: z.infer<typeof splashFormValidationSchema>
+  ) => {
     setIsSubmitting(true);
 
     // - Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    console.log("📗 [ Data Submitted ]:", formData);
+    console.log("📗 [ Data Submitted ]:", values);
     setIsSubmitting(false);
     setIsSubmitted(true);
-    setFormData({ name: "", email: "", message: "" });
+    form.reset(defaultValues);
 
     // - Reset success message after 5 seconds
     setTimeout(() => setIsSubmitted(false), 5000);
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
   };
 
   return (
@@ -198,7 +202,7 @@ const SplashPage = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="relative">
+            <form onSubmit={form.handleSubmit(submitForm)} className="relative">
               {/* - Form card with glassmorphism */}
               <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 p-8 backdrop-blur-sm transition-all hover:border-primary/20 hover:shadow-lg">
                 {/* - Gradient background effect */}
@@ -217,13 +221,19 @@ const SplashPage = () => {
                     <input
                       type="text"
                       id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
                       placeholder="John Doe"
-                      className="w-full rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      {...form.register("name")}
+                      className={`w-full rounded-xl border bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 ${
+                        form.formState.errors.name
+                          ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+                          : "border-border/50 focus:border-primary/50 focus:ring-primary/20"
+                      }`}
                     />
+                    {form.formState.errors.name && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.name.message}
+                      </p>
+                    )}
                   </div>
 
                   {/* - Email field */}
@@ -238,13 +248,19 @@ const SplashPage = () => {
                     <input
                       type="email"
                       id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
                       placeholder="john@example.com"
-                      className="w-full rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      {...form.register("email")}
+                      className={`w-full rounded-xl border bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 ${
+                        form.formState.errors.email
+                          ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+                          : "border-border/50 focus:border-primary/50 focus:ring-primary/20"
+                      }`}
                     />
+                    {form.formState.errors.email && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.email.message}
+                      </p>
+                    )}
                   </div>
 
                   {/* - Message field */}
@@ -258,14 +274,20 @@ const SplashPage = () => {
                     </label>
                     <textarea
                       id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
                       rows={4}
                       placeholder="Tell us how we can help you..."
-                      className="w-full resize-none rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                      {...form.register("message")}
+                      className={`w-full resize-none rounded-xl border bg-background/50 px-4 py-3 text-foreground transition-all placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 ${
+                        form.formState.errors.message
+                          ? "border-red-500 focus:border-red-500 focus:ring-red-500/20"
+                          : "border-border/50 focus:border-primary/50 focus:ring-primary/20"
+                      }`}
                     />
+                    {form.formState.errors.message && (
+                      <p className="mt-1 text-sm text-red-500">
+                        {form.formState.errors.message.message}
+                      </p>
+                    )}
                   </div>
 
                   {/* - Submit button */}

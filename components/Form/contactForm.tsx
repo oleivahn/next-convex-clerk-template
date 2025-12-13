@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
-import { contactSchema } from "@/lib/schemas";
+import { contactSchema } from "@/lib/formValidationSchemas";
 
 // - UI Components
 import { Button } from "../ui/button";
@@ -38,6 +38,7 @@ const ContactForm = () => {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
   const createContact = useMutation(api.contactUs.create);
 
   const defaultValues = {

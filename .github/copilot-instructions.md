@@ -38,3 +38,6 @@ When generating code, please adhere to the following guidelines to ensure consis
   - `📗 [ Data Retrieved ]:`: This is the data that was retrieved from the server.
   - `📗 [ Data Created ]:`: This is the data that was created in the server.
 - If the project uses Shadcn, use the Shadcn components and classes for styling.
+- Make all forms using shadcn
+- Always use react-hook-form and zod (zod resolver) for front end form validation
+- if we are usingh zod, validate each form data in the back end too before doing anything with the data

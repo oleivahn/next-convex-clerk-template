@@ -1,6 +1,6 @@
-# Schemas
+# Form Validation Schemas
 
-This folder contains Zod validation schemas for data validation.
+This folder contains Zod validation schemas for form data validation.
 
 ## Description
 
@@ -13,4 +13,5 @@ Schemas are used for:
 ## Files
 
 - `contact.ts` - Contact form validation schema (name, message)
+- `splash.ts` - Splash page contact form validation schema (name, email, message)
 - `index.ts` - Re-exports all schemas for convenient imports

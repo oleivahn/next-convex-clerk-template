@@ -8,7 +8,7 @@ export const contactSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
-  message: z.string().min(1, {
+  message: z.string().min(5, {
     message: "The message area cannot be empty, please add a message.",
   }),
 });
