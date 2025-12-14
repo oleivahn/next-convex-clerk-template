@@ -1,5 +1,8 @@
 // Re-export all schemas for convenient imports
-// Usage: import { contactSchema } from "@/lib/formValidationSchemas";
+// Usage: import { formTemplateValidationSchema } from "@/lib/formValidationSchemas";
 
-export { contactSchema, type ContactFormData } from "./contact";
+export {
+  formTemplateValidationSchema,
+  type FormTemplateData,
+} from "./formTemplate";
 export { splashFormValidationSchema, type SplashFormData } from "./splash";

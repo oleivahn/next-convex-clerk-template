@@ -1,14 +1,14 @@
 import {
-  contactSchema,
-  type ContactFormData,
+  formTemplateValidationSchema,
+  type FormTemplateData,
 } from "@/lib/formValidationSchemas";
 
 // - Re-export type for convenience
-export type { ContactFormData };
+export type { FormTemplateData };
 
-export type ContactResponse = {
+export type FormTemplateResponse = {
   message: string;
-  data: ContactFormData | null;
+  data: FormTemplateData | null;
   error?: boolean;
 };
 
@@ -16,13 +16,13 @@ export type ContactResponse = {
 const API_BASE = "/api";
 
 /**
- * Submit contact form data to the API
+ * Submit form template data to the API
  */
-export const submitContactForm = async (
-  data: ContactFormData
-): Promise<ContactResponse> => {
+export const submitFormTemplate = async (
+  data: FormTemplateData
+): Promise<FormTemplateResponse> => {
   // - Validate data first
-  const parsed = contactSchema.safeParse(data);
+  const parsed = formTemplateValidationSchema.safeParse(data);
 
   if (!parsed.success) {
     return {
@@ -34,7 +34,7 @@ export const submitContactForm = async (
 
   // - Submit the form to the API
   try {
-    const response = await fetch(`${API_BASE}/contact`, {
+    const response = await fetch(`${API_BASE}/form-template`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

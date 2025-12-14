@@ -12,6 +12,7 @@ import { dark } from "@clerk/themes";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import SplashPage from "@/components/SplashPage";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Lei Solutions",
@@ -77,6 +78,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   </div>
                 </div>
               </SignedIn>
+              <Toaster />
             </ThemeProvider>
           </ConvexClientProvider>
         </body>

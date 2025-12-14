@@ -12,6 +12,6 @@ Schemas are used for:
 
 ## Files
 
-- `contact.ts` - Contact form validation schema (name, message)
+- `formTemplate.ts` - Form template validation schema (name, message)
 - `splash.ts` - Splash page contact form validation schema (name, email, message)
 - `index.ts` - Re-exports all schemas for convenient imports

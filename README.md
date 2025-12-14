@@ -33,7 +33,18 @@ Clerk -> App Dashboard -> Configure -> API Keys (sidebar)-> Grab the .env.local 
 
 `CLERK_SECRET_KEY=`
 
-### Setup roles and metadata
+### FINALLY, get the JWT token key from clerk and convex template
+
+https://docs.convex.dev/auth/clerk
+
+On clerk, go to the app -> configure -> sessions -> JWT templates -> + Add new template
+Select a convex template -> and the copy the issuer URL you see after you select a template
+Open your .env.local file and paste it there:
+`CLERK_JWT_ISSUER_DOMAIN`
+
+**Also go to convex** -> Go to your apps DB -> Settings -> Environment Variables and create the same var there too
+
+### Setup roles and metadata on CLERK
 
 #### **IMPORTANT:** We need to setup roles and metadata to enable Role based authorization and authentication
 

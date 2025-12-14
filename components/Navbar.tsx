@@ -49,7 +49,7 @@ export default function Navbar() {
   const RIGHT_NAV_ITEMS: NavItem[] = [
     { href: "/admin", label: "Admin", requiredRole: "admin" },
     { href: "/database", label: "Database", requiredRole: "admin" },
-    { href: "/contact-us", label: "Contact Us" },
+    { href: "/form-template", label: "Form Template" },
   ];
 
   return (

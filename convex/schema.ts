@@ -5,7 +5,7 @@ export default defineSchema({
   testTasks: defineTable({
     taskTest: v.string(),
   }),
-  contactUs: defineTable({
+  formTemplate: defineTable({
     name: v.string(),
     message: v.string(),
     createdAt: v.number(),

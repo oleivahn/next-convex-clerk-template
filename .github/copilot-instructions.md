@@ -37,7 +37,10 @@ When generating code, please adhere to the following guidelines to ensure consis
   - `📗 [ Data Deleted ]:`: This is the data that was deleted from the server.
   - `📗 [ Data Retrieved ]:`: This is the data that was retrieved from the server.
   - `📗 [ Data Created ]:`: This is the data that was created in the server.
+- Always use formTemplate.tsx as a template for how I want forms to be done. (zod, react-hook-form, shadcn, toasters etc) Always follow the same pattern
 - If the project uses Shadcn, use the Shadcn components and classes for styling.
 - Make all forms using shadcn
 - Always use react-hook-form and zod (zod resolver) for front end form validation
-- if we are usingh zod, validate each form data in the back end too before doing anything with the data
+- always validate data with zod too in the back end too before doing anything with the data.
+- Zod should handle both front end and backend validation from a single point of truth as formTemplate.ts does it
+- Use toasters for success messages

@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { formTemplateValidationSchema } from "@/lib/formValidationSchemas";
+
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-
-import { contactSchema } from "@/lib/formValidationSchemas";
 
 // - UI Components
 import { Button } from "../ui/button";
@@ -29,17 +29,18 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
 
 //
 //
 //
 // - Main Component
-const ContactForm = () => {
+const FormTemplate = () => {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const { toast } = useToast();
 
-  const createContact = useMutation(api.contactUs.create);
+  const createFormEntry = useMutation(api.formTemplate.create);
 
   const defaultValues = {
     name: "",
@@ -47,25 +48,30 @@ const ContactForm = () => {
   };
 
   // - Validation
-  const form = useForm<z.output<typeof contactSchema>>({
-    resolver: zodResolver(contactSchema),
+  const form = useForm<z.output<typeof formTemplateValidationSchema>>({
+    resolver: zodResolver(formTemplateValidationSchema),
     defaultValues: defaultValues,
   });
 
   // - Form Submit
-  const submitForm = async (values: z.infer<typeof contactSchema>) => {
+  const submitForm = async (
+    values: z.infer<typeof formTemplateValidationSchema>
+  ) => {
     setPending(true);
     setError("");
-    setSuccess(false);
 
     try {
-      await createContact({
+      await createFormEntry({
         name: values.name,
         message: values.message,
       });
 
       console.log("📗 [ Data Created ]:", values);
-      setSuccess(true);
+      toast({
+        variant: "success",
+        title: "Message sent successfully!",
+        description: "We'll get back to you soon.",
+      });
       // - Reset the form only on success
       form.reset(defaultValues);
     } catch (error) {
@@ -140,11 +146,6 @@ const ContactForm = () => {
                   {pending ? "Sending..." : "Send Message"}
                 </Button>
               </div>
-              {success && (
-                <div className="mt-4 text-center text-green-500">
-                  Message sent successfully! We&apos;ll get back to you soon.
-                </div>
-              )}
               {error && (
                 <>
                   <div className="mt-4 text-center text-red-500">
@@ -161,4 +162,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default FormTemplate;
