@@ -44,7 +44,10 @@ export default function Navbar() {
     return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
   };
 
-  const LEFT_NAV_ITEMS: NavItem[] = [{ href: "/", label: "Home" }];
+  const LEFT_NAV_ITEMS: NavItem[] = [
+    { href: "/", label: "Home" },
+    { href: "/inventory", label: "Inventory" },
+  ];
 
   const RIGHT_NAV_ITEMS: NavItem[] = [
     { href: "/admin", label: "Admin", requiredRole: "admin" },

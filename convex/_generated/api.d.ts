@@ -9,6 +9,7 @@
  */
 
 import type * as formTemplate from "../formTemplate.js";
+import type * as inventory from "../inventory.js";
 import type * as lib_auth from "../lib/auth.js";
 import type * as testTasks from "../testTasks.js";
 
@@ -20,6 +21,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   formTemplate: typeof formTemplate;
+  inventory: typeof inventory;
   "lib/auth": typeof lib_auth;
   testTasks: typeof testTasks;
 }>;

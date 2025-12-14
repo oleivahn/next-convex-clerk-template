@@ -72,8 +72,9 @@ const FormTemplate = () => {
         title: "Message sent successfully!",
         description: "We'll get back to you soon.",
       });
-      // - Reset the form only on success
+      // - Reset the form and clear validation errors on success
       form.reset(defaultValues);
+      form.clearErrors();
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "An unexpected error occurred";

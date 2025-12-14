@@ -4,5 +4,12 @@
 export {
   formTemplateValidationSchema,
   type FormTemplateData,
-} from "./formTemplate";
-export { splashFormValidationSchema, type SplashFormData } from "./splash";
+} from "./formTemplateValidationSchema";
+export {
+  splashFormValidationSchema,
+  type SplashFormData,
+} from "./splashValidationSchema";
+export {
+  inventoryFormValidationSchema,
+  type InventoryFormData,
+} from "./inventoryValidationSchema";
