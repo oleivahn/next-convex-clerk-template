@@ -13,7 +13,7 @@ git clone https://github.com/oleivahn/next-convex-clerk-template.git [[NEW_APP_N
 ## Redirect the template repo to the new repo and push
 
 ```bash
-git remote set-url origin https://github.com/oleivahn/covey.git
+git remote set-url origin https://github.com/oleivahn/next-convex-clerk-template.git
 git push
 ```
 
@@ -23,7 +23,7 @@ You should now be connected to the new repo and be able to start developing on t
 
 `npm i`
 
-#### First, run the development server and convex on different terminals:
+#### OPEN 2 TERMINALS , run the development server and convex on each:
 
 ```bash
 npm run dev
@@ -31,44 +31,47 @@ npx convex dev (Log in with Github)
 // connect to test-app
 ```
 
-## Convex
+#### Your app should throw an error now because we need lo link Clerk first
 
-Convex connects thu a direct link on .env.local
-
-Run the dashboard
-
-`npx convex dashboard`
-
-## Clerk
+## CLERK
 
 ### Get the public keys:
 
-Create a new application with your desire name.
+Go to Clerk main page:
 
-Grab the connection variables and add them to a `.env` or `.env.local`file in the root of your project.
+Create a new application with your desire name. Organizations is not needed.
 
-Clerk -> App Dashboard -> Configure -> API Keys (sidebar)-> Grab the .env.local configs
+Grab the connection variables and add them to a `.env` or `.env.local`file in the root of your project (THIS PROJECT).
+
+Clerk Main page -> Go to your app -> Configure -> API Keys (sidebar)-> Grab BOTH the .env.local configs
 
 `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=`
 
 `CLERK_SECRET_KEY=`
 
+and paste them into your .env file on this code repo
+
 ### FINALLY, get the JWT token key from clerk and convex template
 
 https://docs.convex.dev/auth/clerk
 
-On clerk, go to the app -> configure -> sessions -> JWT templates -> + Add new template
-Select a convex template -> and the copy the issuer URL you see after you select a template
+On clerk, go to your APP -> configure -> sessions -> JWT templates -> + Add new template
+Select a convex template from the template dropdown -> and the copy the issuer URL you see after you select a template
 Open your .env.local file and paste it there:
 `CLERK_JWT_ISSUER_DOMAIN`
 
 **Also go to convex** -> Go to your apps DB -> Settings -> Environment Variables and create the same var there too
+`CLERK_JWT_ISSUER_DOMAIN`
 
-### Setup roles and metadata on CLERK
+## SETUP ROLES AND METADATA ON CLERK
+
+At this point, you should be able to see the app running and even logging in but once inside, you cannot see the Admin or Database Tabs because you are not an admin yet.
+
+So, we need to see the first user as an admin to get access to role base auth.
 
 #### **IMPORTANT:** We need to setup roles and metadata to enable Role based authorization and authentication
 
-- [ ] Clerk -> App Dashboard -> Configure -> Sessions (Sidebar) -> Sessions ->
+- [ ] Clerk -> YOUR APP Dashboard -> Configure -> Sessions (Sidebar) -> Sessions ->
       Customize session token -> And add the following on the claims box:
 
   ```
