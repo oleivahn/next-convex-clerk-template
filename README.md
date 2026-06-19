@@ -6,13 +6,16 @@
 
 ## Clone this repo down for local dev with the new name for the new app
 
+```bash
 git clone https://github.com/oleivahn/next-convex-clerk-template.git [[NEW_APP_NAME]]
+```
 
 ## Redirect the template repo to the new repo and push
 
-`git remote set-url origin https://github.com/oleivahn/covey.git`
-
-`git push`
+```bash
+git remote set-url origin https://github.com/oleivahn/covey.git
+git push
+```
 
 You should now be connected to the new repo and be able to start developing on the new project
 
@@ -33,6 +36,7 @@ npx convex dev (Log in with Github)
 Convex connects thu a direct link on .env.local
 
 Run the dashboard
+
 `npx convex dashboard`
 
 ## Clerk
