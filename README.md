@@ -10,12 +10,11 @@ git clone https://github.com/oleivahn/next-convex-clerk-template.git [[NEW_APP_N
 
 ## Redirect the template repo to the new repo and push
 
-`git remote set-url origin https://github.com/oleivahn/next-convex-clerk-template.git`
-
-New:
 `git remote set-url origin https://github.com/oleivahn/covey.git`
 
 `git push`
+
+You should now be connected to the new repo and be able to start developing on the new project
 
 ## Install the packages
 
