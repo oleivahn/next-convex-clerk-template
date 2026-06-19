@@ -1,5 +1,7 @@
 # Getting Started
 
+git clone https://github.com/oleivahn/next-convex-clerk-template.git [[NEW_APP_NAME]]
+
 ## Install the packages
 
 `npm i`
