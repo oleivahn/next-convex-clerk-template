@@ -2,15 +2,18 @@
 
 ## Create a NEW EMPTY repo on github with no README file
 
+- Can be private or public. Doesn't matter
+
 ## Clone this repo down for local dev with the new name for the new app
 
 git clone https://github.com/oleivahn/next-convex-clerk-template.git [[NEW_APP_NAME]]
 
 ## Redirect the template repo to the new repo and push
 
-git remote set-url origin https://github.com/oleivahn/next-convex-clerk-template.git
-git remote set-url origin https://github.com/oleivahn/covey.git
-git push
+`git remote set-url origin https://github.com/oleivahn/next-convex-clerk-template.git`
+New:
+`git remote set-url origin https://github.com/oleivahn/covey.git`
+`git push`
 
 ## Install the packages
 
