@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
 import { siteConfig } from "@/config/site";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, Show, UserButton } from "@clerk/nextjs";
 
 import { Menu, Package2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -147,12 +147,12 @@ export default function Navbar() {
             }
           )}
           <ThemeToggle />
-          <SignedOut>
+          <Show when="signed-out">
             <SignInButton />
-          </SignedOut>
-          <SignedIn>
+          </Show>
+          <Show when="signed-in">
             <UserButton />
-          </SignedIn>
+          </Show>
         </div>
         {/* </div> */}
       </header>

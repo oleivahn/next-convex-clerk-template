@@ -14,16 +14,15 @@ const isPublicRoute = createRouteMatcher([
 // - Routes that require admin role
 const isAdminRoute = createRouteMatcher(["/admin(.*)", "/database(.*)"]);
 
-export default clerkMiddleware((auth, req) => {
-  const { userId, sessionClaims } = auth();
-
+export default clerkMiddleware(async (auth, req) => {
   // - Protect all routes except public ones
   if (!isPublicRoute(req)) {
-    auth().protect();
+    await auth.protect();
   }
 
   // - Check admin role for admin routes
   if (isAdminRoute(req)) {
+    const { sessionClaims } = await auth();
     const role = parseRole((sessionClaims?.metadata as { role?: string })?.role);
 
     if (!meetsRoleRequirement(role, "admin")) {

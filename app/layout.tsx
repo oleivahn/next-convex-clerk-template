@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 
-import { ClerkProvider, SignedIn, SignedOut } from "@clerk/nextjs";
+import { ClerkProvider, Show } from "@clerk/nextjs";
 
 import { dark } from "@clerk/themes";
 
@@ -44,10 +44,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <ClerkProvider
       appearance={{
-        baseTheme: theme,
+        theme,
       }}
     >
-      <html lang="en">
+      {/* - next-themes injects class and color-scheme on <html> after mount */}
+      <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
@@ -64,12 +65,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
               disableTransitionOnChange
             >
               {/* - Show splash page for non-authenticated users */}
-              <SignedOut>
+              <Show when="signed-out">
                 <SplashPage />
-              </SignedOut>
+              </Show>
 
               {/* - Show app content for authenticated users */}
-              <SignedIn>
+              <Show when="signed-in">
                 <div className="relative flex min-h-screen flex-col">
                   <Navbar />
 
@@ -77,7 +78,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     {children}
                   </div>
                 </div>
-              </SignedIn>
+              </Show>
               <Toaster />
             </ThemeProvider>
           </ConvexClientProvider>

@@ -12,7 +12,7 @@ export const GET = async () => {
 };
 
 // - Sample POST request
-export const POST = async (request: Request, respose: NextResponse) => {
+export const POST = async (request: Request) => {
   try {
     // Info: You have to await the request.json() method to get the body of the request
     const body = await request.json();
