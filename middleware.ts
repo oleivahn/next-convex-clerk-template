@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { meetsRoleRequirement, parseRole } from "@/lib/roles";
 
 // - Public routes that don't require authentication
 // - These routes will show the splash page for non-authenticated users
@@ -23,9 +24,9 @@ export default clerkMiddleware((auth, req) => {
 
   // - Check admin role for admin routes
   if (isAdminRoute(req)) {
-    const role = (sessionClaims?.metadata as { role?: string })?.role;
+    const role = parseRole((sessionClaims?.metadata as { role?: string })?.role);
 
-    if (role !== "admin") {
+    if (!meetsRoleRequirement(role, "admin")) {
       // - Redirect non-admins to home page
       return Response.redirect(new URL("/", req.url));
     }

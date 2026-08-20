@@ -1,24 +1,25 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import type { UserRole } from "@/lib/auth";
+import { meetsRoleRequirement, parseRole, type UserRole } from "@/lib/roles";
 
 interface RoleGateProps {
   children: React.ReactNode;
-  allowedRoles: UserRole[];
+  requiredRole: UserRole;
   fallback?: React.ReactNode;
 }
 
 /**
  * Client component that conditionally renders content based on user role
+ * The role is a minimum rank, so an admin passes a moderator gate
  * Usage:
- * <RoleGate allowedRoles={["admin", "moderator"]}>
+ * <RoleGate requiredRole="moderator">
  *   <AdminPanel />
  * </RoleGate>
  */
 const RoleGate = ({
   children,
-  allowedRoles,
+  requiredRole,
   fallback = null,
 }: RoleGateProps) => {
   const { user, isLoaded } = useUser();
@@ -31,10 +32,9 @@ const RoleGate = ({
     );
   }
 
-  const userRole = (user?.publicMetadata?.role as UserRole) || "user";
-  const hasAccess = allowedRoles.includes(userRole);
+  const userRole = parseRole(user?.publicMetadata?.role);
 
-  if (!hasAccess) {
+  if (!meetsRoleRequirement(userRole, requiredRole)) {
     return <>{fallback}</>;
   }
 

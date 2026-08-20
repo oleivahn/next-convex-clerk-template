@@ -4,6 +4,21 @@ globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx
 ---
 
 # Convex guidelines
+
+## Authorization guidelines (NON-NEGOTIABLE)
+
+Every function registered with `query`, `mutation`, or `action` is a public endpoint on the internet. The deployment URL is shipped to the browser in `NEXT_PUBLIC_CONVEX_URL`, so anyone can read it out of the client bundle and call these functions directly with no browser and no session.
+
+Next.js `middleware.ts`, `RoleGate`, the navbar filtering, and the `app/database/layout.tsx` guard only decide what gets RENDERED. Requests to Convex never pass through Next.js, so none of them protect a Convex function. Backend enforcement has to live in the handler.
+
+- ALWAYS call `await requireAuth(ctx)` (from `convex/lib/auth.ts`) as the FIRST statement in every `query`, `mutation`, and `action` handler.
+- The ONLY exception is data meant to be readable by anonymous visitors. Make that a deliberate, documented decision with a `// - Public on purpose: <reason>` comment directly above the handler. Never leave a function unprotected simply by forgetting.
+- Use `internalQuery`, `internalMutation`, and `internalAction` for anything a browser must never call, such as webhook handlers, cron targets, and privileged internals. Those are not registered as public endpoints.
+- Argument validators and Zod schemas check the SHAPE of the payload, never the IDENTITY of the caller. Passing validation is not authorization.
+- Roles currently live in Clerk `publicMetadata` and are NOT visible to Convex, because they are not part of the `convex` JWT template claims. Until that changes, Convex can enforce "is signed in" but cannot enforce "is an admin". Do not write a Convex function that assumes it knows the caller's role.
+- Anything that must be restricted by role has to be gated in Convex too, not only in the UI. A `RoleGate` around a button does not stop the mutation behind it from being called directly.
+- When adding a new file under `convex/`, add the auth check before wiring the function to any UI.
+
 ## Function guidelines
 ### New function syntax
 - ALWAYS use the new function syntax for Convex functions. For example:

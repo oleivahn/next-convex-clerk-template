@@ -56,7 +56,7 @@ and paste them into your .env file on this code repo
 https://docs.convex.dev/auth/clerk
 
 On clerk, go to your APP -> configure -> sessions -> JWT templates -> + Add new template
-Select a convex template from the template dropdown -> and the copy the issuer URL you see after you select a template
+Select a convex template from the template dropdown -> and the copy the *issuer* URL you see after you select a template
 Open your .env.local file and paste it there:
 `CLERK_JWT_ISSUER_DOMAIN`
 
@@ -90,7 +90,20 @@ So, we need to see the first user as an admin to get access to role base auth.
   }
   ```
 
-  `[ admin | moderator | user]`
+  `[ admin | moderator ]`
+
+  **Only elevated roles are stored.** A signed-in user with no `role` in their public metadata is treated as a regular user and gets access to everything that isn't explicitly gated. You never need to set `"role": "user"`.
+
+  **Roles are ranked, and a gate is a minimum.** `admin` outranks `moderator`, so gating something on `moderator` lets moderators *and* admins through. An admin always sees everything, and you never list more than one role.
+
+  ```tsx
+  // - Visible to moderators and admins
+  <RoleGate requiredRole="moderator">
+    <ReportsPanel />
+  </RoleGate>
+  ```
+
+  The same applies to nav links in `components/Navbar.tsx` (`requiredRole`), server components (`await hasRole("moderator")`), and route protection in `middleware.ts`. All of them share the ranking defined in `lib/roles.ts`, which is the one place to edit if you add a role.
 
 #### Then configure each route here on the app per needs
 

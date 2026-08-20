@@ -13,7 +13,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "./Theme-toggle";
 
 import { Icons } from "@/components/icons";
-import type { UserRole } from "@/lib/auth";
+import { meetsRoleRequirement, parseRole, type UserRole } from "@/lib/roles";
 
 // - Nav item type with optional role requirement
 type NavItem = {
@@ -28,20 +28,12 @@ export default function Navbar() {
   const pathname = usePathname();
   const { user } = useUser();
 
-  // - Get user role from public metadata
-  const userRole = (user?.publicMetadata?.role as UserRole) || "user";
+  // - Get user role from public metadata. Null means a regular user
+  const userRole = parseRole(user?.publicMetadata?.role);
 
-  // - Role hierarchy for checking access
-  const roleHierarchy: Record<UserRole, number> = {
-    user: 1,
-    moderator: 2,
-    admin: 3,
-  };
-
-  // - Check if user has required role
+  // - Check if user meets a link's minimum role, if it has one
   const hasAccess = (requiredRole?: UserRole) => {
-    if (!requiredRole) return true;
-    return roleHierarchy[userRole] >= roleHierarchy[requiredRole];
+    return meetsRoleRequirement(userRole, requiredRole);
   };
 
   const LEFT_NAV_ITEMS: NavItem[] = [

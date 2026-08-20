@@ -23,7 +23,7 @@ export default function AdminPage() {
         </p>
 
         <div className="mt-8">
-          <RoleGate allowedRoles={["admin"]}>
+          <RoleGate requiredRole="admin">
             <Card className="max-w-md border-primary/50 bg-primary/5">
               <CardHeader className="flex flex-row items-center gap-3">
                 <Shield className="h-8 w-8 text-primary" />
