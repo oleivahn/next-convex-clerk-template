@@ -1,5 +1,6 @@
 # Getting Started
 ---
+This is a template for a new app using Next.js, Convex, and Clerk. No mobile app.
 
 ## Clone this repo down for local dev with the new name for the new app
 
