@@ -131,3 +131,4 @@ Copy the `.env` configs though.
 
 Just in case, I saw this on documentation somewhere in case there are issues.
 `npx convex deploy --cmd 'npm run build'`
+# expo_next_clerk_template
