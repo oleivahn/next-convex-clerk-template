@@ -1,24 +1,32 @@
 # Getting Started
-
-## Create a NEW EMPTY repo on github with no README file
-
-- Can be private or public. Doesn't matter
+---
 
 ## Clone this repo down for local dev with the new name for the new app
 
 ```bash
-git clone https://github.com/oleivahn/next-convex-clerk-template.git [[NEW_APP_NAME]]
+git clone https://github.com/oleivahn/next-convex-clerk-template.git [new-app-name]
 ```
+
+## Create a NEW EMPTY repo on github with **NO README.md** file. THIS IS THE ONE YOU WILL PUSH TO
+- Can be private or public. Doesn't matter
 
 ## Redirect the template repo to the new repo and push
 
 ```bash
-git remote set-url origin https://github.com/oleivahn/next-convex-clerk-template.git
+// Syntax
+---------
+git remote set-url origin https://github.com/[YOUR_GITHUB_USERNAME]/[new-app-name].git
+
+// Example
+----------
+git remote set-url origin https://github.com/oleivahn/new-app-name.git
+
 git push
 ```
 
 You should now be connected to the new repo and be able to start developing on the new project
 
+---
 ## Install the packages
 
 `npm i`
@@ -31,9 +39,10 @@ npx convex dev (Log in with Github)
 // connect to test-app
 ```
 
+## CLERK
+
 #### Your app should throw an error now because we need lo link Clerk first
 
-## CLERK
 
 ### Get the public keys:
 
